@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/layout.css" />
+  </head>
+  <body>
+    <h1 class="date-box">
+      <span class="date"></span>
+      <span class="time"></span>
+    </h1>
+    <script>
+      const getCurrentDate = function () {
+        const current = new Date();
+        const year = current.getFullYear(); // 2024
+        const month = current.getMonth(); // 2
+        const date = current.getDate(); // 11
+        const hour = current.getHours();
+        const minute = current.getMinutes();
+        const second = current.getSeconds();
+        const myDate = document.querySelector(".date");
+        const myTime = document.querySelector(".time");
+
+        myDate.textContent = year + "." + (month + 1) + "." + date;
+        myTime.textContent = hour + ":" + minute + ":" + second;
+      };
+      setInterval(getCurrentDate, 1000);
+    </script>
+  </body>
+</html>
