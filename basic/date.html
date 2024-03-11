@@ -18,17 +18,33 @@
       const getCurrentDate = function () {
         const current = new Date();
         const year = current.getFullYear(); // 2024
-        const month = current.getMonth(); // 2
-        const date = current.getDate(); // 11
-        const hour = current.getHours();
-        const minute = current.getMinutes();
-        const second = current.getSeconds();
+        let month = current.getMonth() + 1; // 2
+        if (month < 10) {
+          month = "0" + month;
+        }
+        let date = current.getDate(); // 11
+        if (date < 10) {
+          date = "0" + date;
+        }
+        let hour = current.getHours();
+        if (hour < 10) {
+          hour = "0" + hour;
+        }
+        let minute = current.getMinutes();
+        if (minute < 10) {
+          minute = "0" + minute;
+        }
+        let second = current.getSeconds();
+        if (second < 10) {
+          second = "0" + second;
+        }
         const myDate = document.querySelector(".date");
         const myTime = document.querySelector(".time");
 
-        myDate.textContent = year + "." + (month + 1) + "." + date;
+        myDate.textContent = year + "." + month + "." + date;
         myTime.textContent = hour + ":" + minute + ":" + second;
       };
+      // 함수를 만들어서 매개변수가 10보다 작으면 "0"붙여서 리턴하는 addZero 함수를 만들어서 사용
       setInterval(getCurrentDate, 1000);
     </script>
   </body>
