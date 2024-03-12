@@ -11,47 +11,78 @@
     <link rel="stylesheet" href="css/lotto.css" />
   </head>
   <body>
-    <ul class="list"></ul>
+    <div class="btns">
+      <button class="btn">01</button>
+      <button class="btn">02</button>
+      <button class="btn">03</button>
+      <button class="btn">04</button>
+      <button class="btn">05</button>
+    </div>
+    <div class="paper-wrap">
+      <div class="paper">
+        <ul class="list"></ul>
+      </div>
+    </div>
     <script>
-      const nums = [];
-      for (let i = 0; i < 45; i++) {
-        nums.push(i + 1);
-      }
-      const selectedNums = [];
-      for (let i = 0; i < 6; i++) {
-        // prettier-ignore
-        selectedNums.push(
+      const makeLotto = function () {
+        const nums = [];
+        const selectedNums = [];
+        for (let i = 0; i < 45; i++) {
+          nums.push(i + 1);
+        }
+        for (let i = 0; i < 6; i++) {
+          // prettier-ignore
+          selectedNums.push(
           nums
           .splice(Math.floor(Math.random() * nums.length), 1)
           .pop()
         );
-      }
-      console.log(selectedNums);
-      //js sort는 문자 장렬  1,2,3,4,5,6
-      selectedNums.sort(function (a, b) {
-        return a - b;
-      });
-      selectedNums.sort((a, b) => {
-        return a - b;
-      });
-      selectedNums.sort((a, b) => a - b);
-      console.log(selectedNums);
+        }
+        //js sort는 문자 장렬  1,2,3,4,5,6
+        // selectedNums.sort(function (a, b) {
+        //   return a - b;
+        // });
+        // selectedNums.sort((a, b) => {
+        //   return a - b;
+        // });
+        selectedNums.sort((a, b) => a - b);
+        for (let i = 0; i < 6; i++) {
+          // 번호에 따라 li의 클래스를 다르게 설정하기...
+          // 점심 맛있게 먹을 수 있도록 응원을 보내줄께요...
+          const ball = selectedNums[i];
+          let color;
+          if (ball >= 1 && ball <= 10) {
+            color = "orange";
+          } else if (ball >= 11 && ball <= 20) {
+            color = "blue";
+          } else if (ball >= 21 && ball <= 30) {
+            color = "red";
+          } else if (ball >= 31 && ball <= 40) {
+            color = "gray";
+          } else {
+            color = "green";
+          }
+          list.innerHTML += `<li class=${color}>${ball}</li>`;
+        }
+      };
+      const paper = document.querySelector(".paper");
+      const btn = document.querySelectorAll(".btn");
       const list = document.querySelector(".list");
-      for (let i = 0; i < 6; i++) {
-        // 번호에 따라 li의 클래스를 다르게 설정하기...
-        // 점심 맛있게 먹을 수 있도록 응원을 보내줄께요...
-        list.innerHTML += `<li class="orange">${selectedNums[i]}</li>`;
-      }
-      // <ul>
-      //   <li>selectedNums[0]</li>
-      //   <li>selectedNums[1]</li>
-      //   <li>selectedNums[2]</li>
-      //   <li>selectedNums[3]</li>
-      //   <li>selectedNums[4]</li>
-      //   <li>selectedNums[5]</li>
-      // </ul>;
+      for (let i = 0; i < 5; i++) {
+        btn[i].addEventListener("click", function () {
+          paper.classList.remove("on");
+          setTimeout(function () {
+            paper.classList.add("on");
+          }, 100);
 
-      console.log(selectedNums);
+          list.innerHTML = "";
+
+          //console.log("다른거 왜 클릭안돼지");
+          for (let j = 0; j < i + 1; j++) {
+            makeLotto();
+          }
+        });
+      }
     </script>
   </body>
 </html>

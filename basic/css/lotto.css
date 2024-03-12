@@ -32,12 +32,52 @@ button {
 
 body {
   font-family: "Montserrat", sans-serif;
+  display: block;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+  gap: 10px;
+}
+.btns .btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  color: #fff;
+  background-color: #666;
+  font-family: "Montserrat";
+}
+
+.paper-wrap {
+  width: 350px;
+  margin: auto;
+  min-height: 370px;
+  overflow: hidden;
+}
+
+.paper {
+  min-height: 370px;
+  background-color: #fff;
+  transform: translateY(-110%);
+}
+.paper.on {
+  transition: all 1s ease;
+  transform: translateY(0);
 }
 
 .list {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  width: 350px;
   gap: 5px;
+  padding: 50px 0;
 }
 .list li {
   font-weight: 700;
