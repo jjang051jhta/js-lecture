@@ -21,14 +21,29 @@ body {
     color: #fff;
     background-color: #666;
     font-family: "Montserrat";
+    &.on {
+      background-color: #f00;
+    }
   }
 }
 .paper-wrap {
   width: 350px;
   margin: auto;
-  min-height: 370px;
+  min-height: 390px;
   overflow: hidden;
+  position: relative;
   //background-color: #f00;
+  &:before {
+    content: "GOOD \A LUCK";
+    white-space: pre;
+    display: block;
+    color: #fff;
+    font-size: 24px;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 50%;
+  }
 }
 .paper {
   //width: 350px;
@@ -36,9 +51,22 @@ body {
   min-height: 370px;
   background-color: #fff;
   transform: translateY(-110%);
+  position: relative;
   &.on {
     transition: all 1s ease;
     transform: translateY(0);
+  }
+  &:after {
+    background: linear-gradient(-45deg, transparent 16px, #fff 0), linear-gradient(45deg, transparent 16px, #fff 0);
+    background-repeat: repeat-x;
+    background-position: left bottom;
+    background-size: 10px 20px;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    bottom: -18px;
   }
 }
 .list {
@@ -67,6 +95,7 @@ body {
     color: #fff;
     border-radius: 100px;
     overflow: hidden;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
     &.orange {
       background-color: $orange;
       @include longShadow(50, darken($orange, 10));
