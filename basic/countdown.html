@@ -48,6 +48,7 @@
     const minutesDom = document.querySelector("#minutes");
     const secondsDom = document.querySelector("#seconds");
     const body = document.querySelector("body");
+
     const word = document.querySelector(".word");
     const author = document.querySelector(".author");
 
@@ -71,6 +72,23 @@
     //     author.textContent = data.quote.author;
     //   });
 
+    const quote = [
+      {
+        word: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+        author: "Nelson Mandela",
+      },
+      {
+        word: "The way to get started is to quit talking and begin doing. ",
+        author: "Walt Disney",
+      },
+      {
+        word: "Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma which is living with the results of other people's thinking.",
+        author: "Eleanor Roosevelt",
+      },
+    ];
+    const randomQuote = Math.floor(Math.random() * 3); //0<Math.random()<3
+    word.textContent = quote[randomQuote].word;
+    author.textContent = quote[randomQuote].author;
     const remainTime = function () {
       const current = new Date(); // 현재 시간
       const last = new Date(2024, 9, 1);

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <script src="lotto.js" defer></script> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/lotto.css" />
+  </head>
+  <body>
+    <ul class="list"></ul>
+    <script>
+      const nums = [];
+      for (let i = 0; i < 45; i++) {
+        nums.push(i + 1);
+      }
+      const selectedNums = [];
+      for (let i = 0; i < 6; i++) {
+        // prettier-ignore
+        selectedNums.push(
+          nums
+          .splice(Math.floor(Math.random() * nums.length), 1)
+          .pop()
+        );
+      }
+      console.log(selectedNums);
+      //js sort는 문자 장렬  1,2,3,4,5,6
+      selectedNums.sort(function (a, b) {
+        return a - b;
+      });
+      selectedNums.sort((a, b) => {
+        return a - b;
+      });
+      selectedNums.sort((a, b) => a - b);
+      console.log(selectedNums);
+      const list = document.querySelector(".list");
+      for (let i = 0; i < 6; i++) {
+        // 번호에 따라 li의 클래스를 다르게 설정하기...
+        // 점심 맛있게 먹을 수 있도록 응원을 보내줄께요...
+        list.innerHTML += `<li class="orange">${selectedNums[i]}</li>`;
+      }
+      // <ul>
+      //   <li>selectedNums[0]</li>
+      //   <li>selectedNums[1]</li>
+      //   <li>selectedNums[2]</li>
+      //   <li>selectedNums[3]</li>
+      //   <li>selectedNums[4]</li>
+      //   <li>selectedNums[5]</li>
+      // </ul>;
+
+      console.log(selectedNums);
+    </script>
+  </body>
+</html>

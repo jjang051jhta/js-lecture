@@ -1,0 +1,50 @@
+@import "vars";
+@import "mixin";
+@import "common";
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+.list {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  $orange: rgb(251, 196, 0);
+  $blue: rgb(105, 200, 242);
+  $red: rgb(255, 114, 114);
+  $gray: rgb(170, 170, 170);
+  $green: rgb(176, 216, 64);
+
+  li {
+    font-weight: 700;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f00;
+    color: #fff;
+    border-radius: 100px;
+    overflow: hidden;
+    &.orange {
+      background-color: $orange;
+      @include longShadow(50, darken($orange, 10));
+    }
+    &.blue {
+      background-color: $blue;
+      @include longShadow(50, darken($blue, 10));
+    }
+    &.red {
+      background-color: $red;
+      @include longShadow(50, darken($red, 10));
+    }
+    &.gray {
+      background-color: $gray;
+      @include longShadow(50, darken($gray, 10));
+    }
+    &.green {
+      background-color: $green;
+      @include longShadow(50, darken($green, 10));
+    }
+  }
+}
