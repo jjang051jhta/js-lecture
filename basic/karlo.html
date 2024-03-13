@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <input type="text" class="search" />
+    <button class="btn-search">검색</button>
+    <ul class="list"></ul>
+    <script>
+      const kakaoSearch = function (searchWord) {
+        $.ajax({
+          url: "https://api.kakaobrain.com/v2/inference/karlo/t2i",
+          type: "POST",
+          data: {
+            model: "v2.1",
+            prompt: "A photo of a cute tiny monster on the beach, daylight",
+            height: 1024,
+            width: 1024,
+          },
+          headers: {
+            Authorization: "KakaoAK a4322cd945d88b2a3d29399c28fe740f",
+            "Content-Type": "application/json",
+          },
+          success: function (response) {
+            console.log(response);
+          },
+        });
+      };
+      kakaoSearch();
+    </script>
+  </body>
+</html>
