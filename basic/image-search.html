@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <input type="text" class="search" />
+    <button class="btn-search">검색</button>
+    <ul class="list"></ul>
+    <script>
+      fetch("https://dapi.kakao.com/v2/search/image?query=전지현", {
+        headers: {
+          Authorization: "KakaoAK a4322cd945d88b2a3d29399c28fe740f",
+        },
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          console.log(data);
+        });
+      const kakaoSearch = function (searchWord) {
+        $.ajax({
+          url: "https://dapi.kakao.com/v2/search/image",
+          data: {
+            query: searchWord,
+            size: 10,
+          },
+          headers: {
+            Authorization: "KakaoAK a4322cd945d88b2a3d29399c28fe740f",
+          },
+          success: function (response) {
+            console.log(response.documents);
+            const documents = [...response.documents];
+            let items = "";
+            $.each(documents, function (idx, el) {
+              items += `<li><img src=${el.thumbnail_url}></li>`;
+            });
+            $(".list").html(items);
+          },
+        });
+      };
+      $(".btn-search").on("click", function () {
+        const search = $(".search").val();
+        kakaoSearch(search);
+      });
+    </script>
+  </body>
+</html>
