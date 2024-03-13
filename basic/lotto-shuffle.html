@@ -8,7 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+
     <link rel="stylesheet" href="css/lotto.css" />
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
   </head>
   <body>
     <div class="btns">
@@ -24,27 +26,48 @@
       </div>
     </div>
     <script>
-      let a = 10;
-      let b = 20;
-      let c;
-      c = a;
-      a = b;
-      b = c;
-      console.log(a, b);
+      const shuffle = function (array) {
+        const arrayCopy = [...array];
+        for (let i = 0; i < arrayCopy.length; i++) {
+          let first = Math.floor(Math.random() * arrayCopy.length); // 3
+          let second = Math.floor(Math.random() * arrayCopy.length); // 1
+          let fixed = arrayCopy[first];
+          arrayCopy[first] = arrayCopy[second];
+          arrayCopy[second] = fixed;
+        }
+        return arrayCopy;
+      };
+      const animals = ["cat", "lion", "dog", "tiger", "bear"];
+      const [aa, bb, cc, dd, ee] = animals;
+      console.log(aa, bb, cc, dd, ee);
+      const [ff, gg, ...hh] = animals;
+      const [...newAnimals] = animals;
+      console.log(newAnimals);
+      animals.push("rabbit");
+      console.log(newAnimals, "===", animals);
+
+      const shuffledAnimals = _.shuffle(animals);
+      console.log(shuffledAnimals);
+      console.log(animals);
+      shuffle(animals);
+
+      // 함수선언문 statement
+
+      // function functionShuffle() {
+      //   console.log("나는 함수 선언문입니다.");
+      // }
+      // 함수 표현식 expression
 
       const makeLotto = function () {
         const nums = [];
         const selectedNums = [];
+        //1~45
         for (let i = 0; i < 45; i++) {
           nums.push(i + 1);
         }
+        const shffledNums = shuffle(nums);
         for (let i = 0; i < 6; i++) {
-          // prettier-ignore
-          selectedNums.push(
-          nums
-          .splice(Math.floor(Math.random() * nums.length), 1)
-          .pop()
-        );
+          selectedNums.push(shffledNums[i]);
         }
 
         //js sort는 문자 장렬  1,2,3,4,5,6

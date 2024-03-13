@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <script src="lotto.js" defer></script> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/lotto.css" />
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="btns">
+      <button class="btn btn-close"><span>01</span></button>
+      <button class="btn"><span>02</span></button>
+      <button class="btn">03</button>
+      <button class="btn">04</button>
+      <button class="btn">05</button>
+    </div>
+    <div class="paper-wrap">
+      <div class="paper ppp bbb">
+        <ul class="list"></ul>
+      </div>
+    </div>
+
+    <div class="popup">
+      <div class="content">내용</div>
+      <div class="btn-box">
+        <button class="btn-close">닫기</button>
+      </div>
+    </div>
+
+    <script>
+      const list = document.querySelectorAll(".btn");
+      // NodeList 배열이기는 한데 유사배열
+      // for, length
+
+      console.log(this);
+      const jqueryList = $(".btn");
+      // for (let i = 0; i < 5; i++) {
+      //   list[i].addEventListener("click", function(e) {
+      //     console.log(this);
+      //     this.classList.add("on");
+      //   });
+      // }
+
+      jqueryList.on("click", function (e) {
+        $(this).siblings().removeClass("on");
+        $(this).addClass("on");
+      });
+
+      const aa = () => {
+        console.log(this);
+      };
+      aa();
+      const myObj = {
+        bb: aa,
+      };
+      // js  this는 언제 호출되는 시점에 결정된다.
+      myObj.bb();
+      function cc() {
+        console.log("cc===", this);
+        function dd() {
+          console.log("dd===", this);
+        }
+        dd();
+      }
+      cc();
+
+      $(".popup .btn-close").on("click", function () {
+        $(".popup").hide();
+        //$(".popup").fadeOut();
+      });
+    </script>
+  </body>
+</html>

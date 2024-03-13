@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/lotto.css">
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  </head>
+  <body>
+    <div class="btns">
+      <p>Lotto 실행</p>
+      <button class="btn">01회</button>
+      <button class="btn">02회</button>
+      <button class="btn">03회</button>
+      <button class="btn">04회</button>
+      <button class="btn">05회</button>
+      <button class="btnCancel">
+        <a href="#" onclick="history.go()">초기화</a>
+      </button>
+    </div>
+    <div class="paper-wrap">
+      <div class="paper">
+        <p><i>Good Luck</i></p>
+        <ul class="list">
+          <!-- script에서 리스트를 자동으로 생성하도록 함수 설정 -->
+        </ul>
+      </div>
+    </div>
+    <script>
+      // lodash 함수 불러오기
+
+          // //(참고)
+          // function A() {} // 함수 선언문(statement) / 함수는 먼저 사용하고 뒤에 선언해도 자바스크립트 상 문제가 없음
+
+          // const A = function() {
+          //   console.log("나는 표현식입니다.")
+          //   return 10; // return값을 받아 const A에 집어넣음. return 값을 지정하지 않으면 디폴드값은 undefined
+          // } // 함수 표현식(expression) - 함수가 결과를 반환해서 변수에 담길 수 있을 때 사용 / 표현식은 정의를 먼저 해야 뒤에 사용 가능
+
+          // 배열을 무작위로 섞은 다음에 앞에서부터 6개의 숫자 뽑기
+
+          // 배열을 무작위로 섞는 함수(섞는 횟수: 배열의 길이 *2)
+          const shuffle = function (array) {
+            const arrayCopy = [...array]; // array에서 넘겨받아 복사한 배열을 사용(원본 배열을 훼손하지 않기 위한 조치)
+             // 반환되는 shuffle의 값은 배열
+            for (let i = 0; i < array.length * 2; i++) {
+              let first = Math.floor(Math.random() * arrayCopy.length); // 3
+              let second = Math.floor(Math.random() * arrayCopy.length); // 1
+              let fixed = arrayCopy[first];
+              arrayCopy[first] = arrayCopy[second];
+              arrayCopy[second] = fixed;
+            }
+            return arrayCopy;
+          };
+
+          // (참고) lodash에서 shuffle 함수를 호출해서 사용할 경우 다음과 같이 함수 작성 가능
+          
+
+
+          function makeLotto() {
+            const nums = []; // 1~45 숫자 들어간 배열 nums 생성
+            for (let i = 0; i < 45; i++) {
+              // nums[i]=i+1 // 배열에 앞에서부터 순차적으로 숫자 넣기
+              nums.push(i + 1); // 매열의 맨 뒤에서부터 차례대로 숫자 밀어넣기.
+            }
+
+           
+
+            const selectedNums = []; // 1~45의 숫자가 임의로 섞인 배열 newNums 에서 앞에서부터 6개의 정수를 뽑아 배열을 만듬
+            // 한 번 돌 때마다 nums 배열 앞쪽에서 숫자를 하나씩 빼오는 반복문
+
+            const shuffledNums = shuffle(nums); // 섞기
+            console.log(shuffledNums);
+            for (let i = 0; i < 6; i++) {
+              selectedNums.push(shuffledNums[i]);
+            }
+
+            // selectedNums.sort() // js 문자 오름차순 정렬. 한자리수가 중간이나 뒤로 가는 문제가 있음. 이를 해결하기 위해 sort()에 콜백 함수를 집어넣어야 함.
+            // (참고) call back 함수: 나중에 호출되는 함수, 익명함수: 이름이 없는 함수
+
+            // const func = function(a, b) {
+            //   if (a > b) {
+            //     return 1;
+            //   } else if (a < b) {
+            //     return -1;
+            //   } else {
+            //     return 0;
+            //   }
+            // }
+
+            // 간단하게 다음과 같이 표현 가능
+            const func = function (a, b) {
+              return a - b;
+            };
+            selectedNums.sort(func);
+
+            // 이하 모두 같은 표현
+
+            // selectedNums.sort(function(a, b) {
+            //   return a-b;
+            // });
+
+            // selectedNums.sort((a, b) => {
+            //   return a - b;
+            // });
+
+            // selectedNums.sort((a, b) => a - b);
+
+            for (let i = 0; i < 6; i++) {
+              const ball = selectedNums[i];
+
+              let color;
+              // 번호에 따라 li의 클래스를 다르게 설정
+              if (1 <= ball && ball <= 10) {
+                color = "orange"; // 오렌지색 추가
+              } else if (ball <= 20) {
+                color = "blue"; // 블루색 추가
+              } else if (ball <= 30) {
+                color = "red"; // 레드색 추가
+              } else if (ball <= 40) {
+                color = "grey"; // 그레이색 추가
+              } else {
+                color = "green"; // 그린색 추가
+              }
+              list.innerHTML += `<li class=${color}> ${ball} </li>`;
+              // 위 표현은 아래의 내용과 같은 표현임.  백틱(``) 안에 있는 내용은 문자로 인식, ${} 안에 있는 내용은 변수로 인식. {} 안에서 연산도 가능
+              // list.innerHTML = list.innerHTML + "<li>" + ball + "</li>";
+              // innerHTML을 사용해야 <li>를 태그로 인식함.
+              // innerHTML 대신에 textContent를 이용할 경우 태그를 포함해서 전체를 텍스트로 인식해버림.
+            }
+          }
+
+
+          // body의 리스트에 .innerHTML을 적용하기 위해 호출
+          const list = document.querySelector(".list"); // body 안에 있는 list 클래스를 찾음
+          const paper = document.querySelector(".paper"); // 화면이 서서히 내려오게끔 만드는 함수 작성을 위해 호출
+
+          // 버튼에 따라 makeLotto() 출력 횟수를 정해줌
+          const btn = document.querySelectorAll(".btn"); // 여러개의 클래스를 찾아야 할 때에는 querySelector 뒤에 All 을 붙여서 작성해야 함.
+          //btn[0].addEventListener("click", function () {makeLotto();}); // 이 형태를 버튼 숫자에 맞게 반복해서 뽑아내야 함
+
+          for (let i = 0; i < 5; i++) {
+            // 반복문을 사용하지 않고 하는 방법
+            // btn[i].addEventListener("click", function (event) {
+            //   event.currentTarget.classList.add("on");
+            btn[i].addEventListener("click", function () {
+              console.log("aasdfasdfasdfasd");
+              for (let k = 0; k < 5; k++) {
+                if (i == k) {
+                  btn[k].classList.add("on"); // 내가 누른 버튼과 같으면 btn 클래에 on 클래스 추가
+                } else {
+                  btn[k].classList.remove("on");
+                }
+              } // 기존에 버튼을 모두 없애고
+              btn[i].classList.add("on"); // 새로운 버튼을 추가
+
+              paper.classList.remove("on"); // paper안에 있는 on 클래스 없애주는 명령어
+              setTimeout(function () {
+                paper.classList.add("on"); // paper안에 있는 on 클래스 추가해주는 명령어
+              }, 100); // 0.1초 후에 나타나게 설정
+
+              list.innerHTML = ""; // 안에 있는 li 없애주는 명령어
+
+              // 버튼(i)에 따라 makeLotto() 출력 횟수 달라짐
+              for (let j = 0; j < i + 1; j++) {
+                makeLotto();
+              }
+            });
+          }
+    </script>
+  </body>
+</html>
