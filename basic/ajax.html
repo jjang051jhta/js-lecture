@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <form action="서버주소" method="get">
+      <input type="text" name="user-id" />
+      <button>전송</button>
+    </form>
+    <input type="text" class="user-id" />
+    <button>전송</button>
+    <script>
+      $.ajax({
+        url: "서버주소",
+        method: "get",
+        data: {
+          userId: "jjang051",
+          password: "1234",
+        },
+        success: function (response) {
+          console.log("성공");
+        },
+      });
+    </script>
+  </body>
+</html>
