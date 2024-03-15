@@ -6,6 +6,8 @@
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+
     <style>
       .chart-box {
         width: 1200px;
@@ -85,12 +87,16 @@
       const addZero = function (num) {
         return num < 10 ? "0" + num : num;
       };
-      const current = new Date();
-      const year = current.getFullYear();
-      const month = addZero(current.getMonth() + 1);
-      const date = addZero(current.getDate() - 1);
-
-      loadData(year + month + date);
+      // const current = new Date("2024-03-01");
+      // console.log(current);
+      // const year = current.getFullYear();
+      // const month = addZero(current.getMonth() + 1);
+      // const date = addZero(current.getDate() - 1);
+      // console.log(year + "==" + month + "==" + date);
+      const yesterDay = dayjs().subtract(1, "day").format("YYYYMMDD");
+      loadData(yesterDay);
+      $("#picked-date").val(dayjs().subtract(1, "day").format("YYYY-MM-DD"));
+      console.log(dayjs().subtract(1, "day").format("YYYYMMDD"));
     </script>
   </body>
 </html>

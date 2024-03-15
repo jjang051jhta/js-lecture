@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+
+    <style>
+      .chart-box {
+        width: 1200px;
+        height: 800px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <!-- <input type="date" id="picked-date" /> -->
+      <select name="" id="sido">
+        <option value="서울">서울</option>
+        <option value="경기">경기</option>
+        <option value="부산">부산</option>
+        <option value="대구">대구</option>
+        <option value="인천">인천</option>
+      </select>
+    </div>
+    <div class="chart-box">
+      <canvas id="myChart"></canvas>
+    </div>
+    <script>
+      $("#sido").on("change", function () {
+        const sido = $(this).val();
+        loadData(sido);
+      });
+
+      const ctx = $("#myChart").get();
+      let myChart = null;
+      const loadData = function (sido) {
+        $.ajax({
+          url: " https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty",
+          data: {
+            serviceKey: "Wnus4QpirWGI56CfvzMWDIDHMRL/mEF/qTl9gwVNbRggLYTGPFIdwBy0L51B+27d5QRbLanNmIAxPwNvl7dKPA==",
+            returnType: "json",
+            numOfRows: 50,
+            pageNo: 1,
+            sidoName: sido,
+            ver: "1.0",
+          },
+          success: function (response) {
+            const coValueList = []; // 일산화탄소
+            const so2ValueList = []; // 아황산가스
+            const o3ValueList = []; // 오존
+            const no2ValueList = []; //이산화질소
+            const labelList = [];
+            const items = [...response.response.body.items];
+            console.log(items);
+
+            $.each(items, function (idx, el) {
+              coValueList.push(el.coValue);
+              so2ValueList.push(el.so2Value);
+              o3ValueList.push(el.o3Value);
+              no2ValueList.push(el.no2Value);
+              labelList.push(el.stationName);
+            });
+            if (myChart !== null) {
+              myChart.destroy();
+            }
+            myChart = new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: labelList,
+                datasets: [
+                  {
+                    label: "일산화탄소",
+                    data: coValueList,
+                    borderWidth: 1,
+                  },
+                  {
+                    label: "아황산가스",
+                    data: so2ValueList,
+                    borderWidth: 1,
+                  },
+                  {
+                    label: "오존",
+                    data: o3ValueList,
+                    borderWidth: 1,
+                  },
+                  {
+                    label: "이산화질소",
+                    data: no2ValueList,
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  y: {
+                    stacked: true,
+                  },
+                  x: {
+                    stacked: true,
+                  },
+                },
+                plugins: {
+                  title: {
+                    display: true,
+                    text: "대기환경",
+                  },
+                },
+              },
+            });
+          },
+        });
+      };
+      loadData("서울");
+    </script>
+  </body>
+</html>
