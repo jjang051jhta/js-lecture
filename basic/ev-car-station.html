@@ -192,6 +192,7 @@
         data: {
           page: 1,
           perPage: 50,
+          addr: "서울",
         },
         success: function (response) {
           console.log(response);
@@ -212,6 +213,13 @@
             });
           });
           clusterer.addMarkers(markers);
+        },
+      });
+
+      $.ajax({
+        url: "https://api.unsplash.com/photos/random/?client_id=3qJEPYfAt46wvDUPhgUkNOAmQcwr62U0qi9dMT0Dzws",
+        success: function (response) {
+          console.log(response);
         },
       });
     </script>
