@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/countdown.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   </head>
   <body>
     <h1>
@@ -73,22 +74,35 @@
     //   });
 
     const quote = [
-      {
-        word: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
-        author: "Nelson Mandela",
-      },
-      {
-        word: "The way to get started is to quit talking and begin doing. ",
-        author: "Walt Disney",
-      },
-      {
-        word: "Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma which is living with the results of other people's thinking.",
-        author: "Eleanor Roosevelt",
-      },
+      // {
+      //   word: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+      //   author: "Nelson Mandela",
+      // },
+      // {
+      //   word: "The way to get started is to quit talking and begin doing. ",
+      //   author: "Walt Disney",
+      // },
+      // {
+      //   word: "Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma which is living with the results of other people's thinking.",
+      //   author: "Eleanor Roosevelt",
+      // },
     ];
+
+    $.ajax({
+      url: "https://api.api-ninjas.com/v1/quotes",
+      headers: { "X-Api-Key": "aRxkd219/3WRCkKLGgtKJQ==ndruOCD6qngKhycu" },
+      contentType: "application/json",
+      success: function (result) {
+        word.textContent = result[0].quote;
+        author.textContent = result[0].author;
+      },
+      error: function ajaxError(jqXHR) {
+        console.error("Error: ", jqXHR.responseText);
+      },
+    });
     const randomQuote = Math.floor(Math.random() * 3); //0<Math.random()<3
-    word.textContent = quote[randomQuote].word;
-    author.textContent = quote[randomQuote].author;
+    //word.textContent = quote[randomQuote].word;
+    //author.textContent = quote[randomQuote].author;
     const remainTime = function () {
       const current = new Date(); // 현재 시간
       const last = new Date(2024, 9, 1);
